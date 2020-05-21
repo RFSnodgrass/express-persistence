@@ -66,9 +66,22 @@ const postStudentGrade = (request, response) => {
   })
 }
 
+const postStudentReg = (request, response) => {
+    
+    const { studentname, email } = request.body
+
+  pool.query('INSERT INTO students (studentname, email) VALUES ($1, $2)', [ studentname, email], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`studewnt aded with name: ${studentname}`)
+  })
+}
+
 module.exports = {
   getStudents,
   getStudent,
   getGrades,
-  postStudentGrade  
+  postStudentGrade,
+  postStudentReg  
 }
