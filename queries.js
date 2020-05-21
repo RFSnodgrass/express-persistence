@@ -39,9 +39,23 @@ const getStudent = (request, response) => {
       }
       response.status(200).json(results.rows)
     })
-  }
+}
+
+
+const getGrades = (request, response) => {
+
+    const studentId = parseInt(request.params.studentId)
+
+    pool.query('SELECT * FROM grades WHERE studentid = $1', [studentId], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).json(results.rows)
+    })
+}
 
 module.exports = {
   getStudents,
-  getStudent  
+  getStudent,
+  getGrades  
 }
