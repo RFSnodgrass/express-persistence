@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/student', db.getStudents)
 app.get('/students/:studentId', db.getStudent);
+//app.get('/grades/:studentId', (req, res) => res.json(findStudentGrades(req.params.studentId)));
 //app.get('/users/:id', db.getUserById)
 //app.post('/users', db.createUser)
 //app.put('/users/:id', db.updateUser)

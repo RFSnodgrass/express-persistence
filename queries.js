@@ -9,12 +9,23 @@ const pool = new Pool({
 
 
 const getStudents = (request, response) => {
-  pool.query('SELECT * FROM students ORDER BY students.id ASC', (error, results) => {
-    if (error) {
-      throw error
+
+    if(request.query.search){
+        pool.query('SELECT * FROM students WHERE students.studentName LIKE $1 ORDER BY students.id ASC', [request.query.search + '%'],(error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(results.rows)
+            })        
     }
-    response.status(200).json(results.rows)
-  })
+    else{    
+        pool.query('SELECT * FROM students ORDER BY students.id ASC', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+        })
+    }
 }
 
 const getStudent = (request, response) => {
