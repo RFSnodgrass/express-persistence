@@ -54,8 +54,21 @@ const getGrades = (request, response) => {
     })
 }
 
+const postStudentGrade = (request, response) => {
+    
+    const { studentid, grade } = request.body
+
+  pool.query('INSERT INTO grades (studentid, grade) VALUES ($1, $2)', [ studentid, grade], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`grade dded with ID: ${studentid}`)
+  })
+}
+
 module.exports = {
   getStudents,
   getStudent,
-  getGrades  
+  getGrades,
+  postStudentGrade  
 }
