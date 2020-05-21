@@ -1,19 +1,21 @@
 var express = require('express');
 var path = require('path');
 const bodyParser = require("body-parser")
+const db = require('./queries')
 
 var app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(express.urlencoded({ extended: false }));
 
-let myStudents = [ { "studentId" : 1, "studentName" : "John Doe", "grades" : [{ "English" : "A" }], "email": "fake@fake.fake" },
-{ "studentId" : 2, "studentName" : "Jane Doe", "grades" : [{ "English" : "C" }, { "Math" : "B" }], "email": "fake@fake.fake" } ]
+app.get('/student', db.getStudents)
+//app.get('/users/:id', db.getUserById)
+//app.post('/users', db.createUser)
+//app.put('/users/:id', db.updateUser)
+//app.delete('/users/:id', db.deleteUser)
 
-let studentIDNum = 2 //magic number for studentID. Very bad, but too lazy to refactor.
 
-function findStudent (studentId) {
+/* function findStudent (studentId) {
     return myStudents.find(student => student.studentId === Number(studentId))    
 }
 
@@ -80,10 +82,10 @@ function postStudent (body, res ) {
 
 }
 
-app.get('/student', (req, res) => res.json(searchStudents(req)));
+//app.get('/student', (req, res) => res.json(searchStudents(req)));
 app.get('/students/:studentId', (req, res) => res.json(findStudent(req.params.studentId)));
 app.get('/grades/:studentId', (req, res) => res.json(findStudentGrades(req.params.studentId)));
 app.post('/grade', (req, res) => res.json(postStudentGrade(req.body, res)));
-app.post('/register', (req, res) => res.json(postStudent(req.body, res)));
+app.post('/register', (req, res) => res.json(postStudent(req.body, res))); */
 
 module.exports = app;
